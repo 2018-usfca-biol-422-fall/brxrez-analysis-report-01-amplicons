@@ -106,7 +106,7 @@ filtered_output <- filterAndTrim(fwd = filenames_forward_reads,
                                  truncQ = 2, # cut off if quality gets this low
                                  rm.phix = TRUE,
                                  compress = TRUE,
-                                 multithread = FALSE)
+                                 multithread = TRUE)
 ```
 
 ```{r filtered-read-counts-table}
@@ -116,6 +116,11 @@ kable(filtered_output,
       col.names = c("Reads In",
                     "Reads Out"))
 ```
+
+```{r filter taxa-table}
+
+```
+
 
 ```{r learn-errors}
 # this build error models from each of the samples
@@ -207,7 +212,7 @@ kable(track)
 # made up of known sequences
 taxa <- assignTaxonomy(sequence_table_nochim,
                        "data/training/rdp_train_set_16.fa.gz",
-                       multithread = FALSE,
+                       multithread = TRUE,
                        tryRC = TRUE) # also check with seq reverse compliments
 
 # show the results of the taxonomy assignment
@@ -283,7 +288,7 @@ plot_richness(phyloseq_obj,
 ```{r example-phyloseq-plot-2}
 # phylogeny, yay!
 plot_tree(phyloseq_obj,
-          color = "Sex",
+          color = "Class",
           ladderize = TRUE) # this arranges the tree branches from short to long
 ```
 
