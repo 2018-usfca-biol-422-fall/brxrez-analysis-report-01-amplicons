@@ -272,6 +272,11 @@ phyloseq_obj <- phyloseq(otu_table(sequence_table_nochim,
                          phy_tree(tree_in)) # phylogeny from sequence variants
 ```
 
+```{r melt-phyloseq}
+# Melt the physloseq object for dplyr/ggplot
+melted_phyloseq <- psmelt(phyloseq_obj)
+```
+
 ```{r example-phyloseq-plot-1}
 # alpha diversity metrics
 plot_richness(phyloseq_obj,
@@ -288,12 +293,75 @@ plot_richness(phyloseq_obj,
 ```{r example-phyloseq-plot-2}
 # phylogeny, yay!
 plot_tree(phyloseq_obj,
-          color = "Class",
+          color = "Order",
           ladderize = TRUE) # this arranges the tree branches from short to long
 ```
 
 **Figure 2**: Inferred phylogeny of sequences, with points on tips representing samples within which each particular taxa occurred. Tree represents phylogeny inferred using FastTree.
 
+# MY FIGURES 
+```{r plot-tree looking at just genus}
+plot_tree(phyloseq_obj, 
+          color = "Genus", 
+          label.tips = "sample_type",
+          ladderize = TRUE)
+```
+```{r plot richness of }
+subset_sample_source_obj <- subset_samples(phyloseq_obj,
+                                           sample_source %in%
+                                             c("Space_bar", "finger_tip"))
+plot_richness(subset_sample_source_obj,
+              x = "sample_type",
+              color = "sample_source",
+              measures = c("Observed", "Shannon")) 
+
+melted_phyloseq %>%
+  filter(sample_source %in% c("Space_bar", "finger_tip")) %>%
+  group_by()
+
+```
+number of different strains (actual number) and shannon counts evenenness and richness. 
+
+```{r melting phyloseq}
+melted_phyloseq <- psmelt(phyloseq_obj)
+```
+
+
+```{r filtered space bar and least abundant phylum}
+subset_phyloseq <- subset_samples(phyloseq_obj, sample_source == "Space_bar")
+
+plot_tree(subset_phyloseq, 
+          color = "Phylum",
+          ladderize = TRUE)
+
+subset_deinococcus_thermus <- subset_taxa(subset_phyloseq, Phylum == "Deinococcus-Thermus")
+
+plot_tree(subset_deinococcus_thermus,
+          color = "Phylum",
+          ladderize = TRUE)
+
+```
+
+```{r presence of deinococcus thermus in samples}
+
+small_obj <- subset_taxa(phyloseq_obj, Phylum == "Deinococcus-Thermus")
+
+plot_tree(small_obj, 
+          color = "Sex",
+          ladderize = TRUE)
+
+```
+
+
+```{r abundance-of-phylum-indoor-vs-human-skin}
+melted_phyloseq %>%
+  ggplot(aes(x = Phylum,
+             y = Abundance,
+             fill = Organism)) +
+  geom_col(position = position_dodge()) +
+  theme(axis.text.x = element_text(angle = 90,
+                                   hjust = 1))
+```
 
 # Discussion
 
