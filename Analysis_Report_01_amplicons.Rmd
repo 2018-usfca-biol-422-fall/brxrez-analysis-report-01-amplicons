@@ -338,27 +338,31 @@ subset_phyloseq <- subset_samples(phyloseq_obj, sample_source == "Space_bar")
 
 plot_tree(subset_phyloseq, 
           color = "Phylum",
-          ladderize = TRUE)
+          ladderize = TRUE) +
+  ggtitle("Distance tree of Phylums on space bars")
 ```
 **Figure 3**: Inferred phylogeny of existing phylum solely on space bar sample type. Tree represents phylogeny inferred using FastTree. Phylum branches are displayed from short to long. 
-```{r filtered space bar and least abundant phylum}
+```{r tracking deinococcus-thermus in space bar within filtered phylums}
 subset_deinococcus_thermus <- subset_taxa(subset_phyloseq, Phylum == "Deinococcus-Thermus")
 
 plot_tree(subset_deinococcus_thermus,
           color = "Phylum",
-          ladderize = TRUE)
+          ladderize = TRUE) +
+  ggtitle("")
 ```
-
-```{r presence of deinococcus thermus in phylogeny tree}
+**Figure 4**: Deinococcus-thermus presence in space bar samples and its presence in descendant phylum. 
+```{r presence of deinococcus thermus filtered by sex}
 
 small_obj <- subset_taxa(phyloseq_obj, Phylum == "Deinococcus-Thermus")
 
 plot_tree(small_obj, 
           color = "Sex",
-          ladderize = TRUE)
+          ladderize = TRUE)+
+  ggtitle("Deinococcus thermus in males and females")+
+
 
 ```
-
+**Figure 5**: Presence of deinococcus thermus in male and female subjects.  
 
 ```{r abundance-of-phylum-indoor-vs-human-skin}
 melted_phyloseq %>%
