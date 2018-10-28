@@ -330,9 +330,6 @@ ggtitle("Plot richness of space bar and finger tip microbiomes")
 
 ```{r melting phyloseq}
 melted_phyloseq <- psmelt(phyloseq_obj)
-melted_phyloseq %>%
-  filter(sample_source %in% c("Space_bar", "finger_tip")) %>%
-  group_by()
 ```
 
 
