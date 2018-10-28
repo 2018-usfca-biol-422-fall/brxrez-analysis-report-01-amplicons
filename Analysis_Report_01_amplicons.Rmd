@@ -319,15 +319,14 @@ subset_sample_source_obj <- subset_samples(phyloseq_obj,
                                              c("Space_bar", "finger_tip"))
 plot_richness(subset_sample_source_obj,
               x = "sample_type",
-              color = "sample_source",
+              color = "sample_type",
               measures = c("Observed", "Shannon")) +
-ggtitle("Alpha Diversity Measure of Space Bar and Finger Tip")
+  xlab("Sample")+
+ggtitle("Plot richness of space bar and finger tip microbiomes")
   
 ```
 
-**Figure 2** Alpha diversity measure of two samples, colored in by sample source. 
-
-number of different strains (actual number) and shannon counts evenenness and richness.
+**Figure 2** Alpha diversity measure of two samples, colored in by sample source. Raw observed data is compared to Shannon index of the two specific samples. 
 
 ```{r melting phyloseq}
 melted_phyloseq <- psmelt(phyloseq_obj)
