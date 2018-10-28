@@ -300,19 +300,25 @@ plot_tree(phyloseq_obj,
 
 
 # MY FIGURES 
-
 ```{r loading-tree-package}
 # load tree package
 source("https://bioconductor.org/biocLite.R")
 biocLite("ggtree")
-
-ggtree::ggtree(phyloseq_obj,
-               melted_phyloseq,
-       aes(color = "Genus"),
-       layout='circular')+
-  aes(angle=angle)
 ```
 
+```{r subset-phylum-existing-on-spacebar}
+subset_phyloseq <- subset_samples(phyloseq_obj, sample_source == "Space_bar")
+
+plot_tree (subset_phyloseq, 
+          color = "Phylum",
+          base.spacing = 0.003,
+          label.tips = "Class",
+          ladderize = TRUE) +
+  ggtitle("Distance tree of Phylums on space bars") +
+  coord_polar(theta = "y")
+
+```
+**Figure 1**: Inferred phylogeny of existing taxa solely on space bar sample swabs. Points on the tip represent taxa found on each sample. Tree represents phylogeny inferred using FastTree. Phylum branches are displayed from short to long in this figure. 
 ```{r plot richness of space bar and finger tip }
 subset_sample_source_obj <- subset_samples(phyloseq_obj,
                                            sample_source %in%
@@ -326,43 +332,33 @@ ggtitle("Plot richness of space bar and finger tip microbiomes")
   
 ```
 
-**Figure 2**: Alpha diversity measure of two samples, colored in by sample source. Raw observed data is compared to Shannon index of the two specific samples. 
+**Figure 2**: Alpha diversity measure of two samples, colored in by sample source. Raw observed data is compared to Shannon index of the two specific samples. Number of strains is represented in the observed, coupled with Shannon index demonstrating evenness and richness. 
 
 ```{r melting phyloseq}
 melted_phyloseq <- psmelt(phyloseq_obj)
 ```
 
-
-```{r subset-phylum-existing-on-spacebar}
-subset_phyloseq <- subset_samples(phyloseq_obj, sample_source == "Space_bar")
-
-plot_tree(subset_phyloseq, 
-          color = "Phylum",
-          ladderize = TRUE) +
-  ggtitle("Distance tree of Phylums on space bars")
-```
-**Figure 3**: Inferred phylogeny of existing phylum solely on space bar sample type. Tree represents phylogeny inferred using FastTree. Phylum branches are displayed from short to long. 
 ```{r tracking deinococcus-thermus in space bar within filtered phylums}
 subset_deinococcus_thermus <- subset_taxa(subset_phyloseq, Phylum == "Deinococcus-Thermus")
 
 plot_tree(subset_deinococcus_thermus,
           color = "Phylum",
+          label.tips = "Abundance",
           ladderize = TRUE) +
-  ggtitle("")
+  ggtitle("Phylogenetic tree of Deinococcus-thermus")
 ```
-**Figure 4**: Deinococcus-thermus presence in space bar samples and its presence in descendant phylum. 
+**Figure 3**: Inferred phylogeny of Deinococcus-thermus in space bar sample types and presence in descendant phylum. Points on the tip demonstrates strain abundance.  
 ```{r presence of deinococcus thermus filtered by sex}
 
 small_obj <- subset_taxa(phyloseq_obj, Phylum == "Deinococcus-Thermus")
 
 plot_tree(small_obj, 
           color = "Sex",
-          ladderize = TRUE)+
-  ggtitle("Deinococcus thermus in males and females")+
-
-
-```
-**Figure 5**: Presence of deinococcus thermus in male and female subjects.  
+          label.tips = "Abundance",
+          ladderize = TRUE) +
+  ggtitle("Deinococcus thermus in male and female samples")
+``` 
+**Figure 4**: Phylogenetic tree of Deinococcus thermus of space bar samples based on 16s RNA gene sequences. The points on the tips represent samples within which each phylum is present in a particular sex and abundance within the strain. Tree represents phylogeny inferred using FastTree. 
 
 ```{r abundance-of-phylum-indoor-vs-human-skin}
 melted_phyloseq %>%
@@ -371,9 +367,10 @@ melted_phyloseq %>%
              fill = Organism)) +
   geom_col(position = position_dodge()) +
   theme(axis.text.x = element_text(angle = 90,
-                                   hjust = 1))
+                                   hjust = 1))+
+  ggtitle("Phylum abundance per organism")
 ```
-
+**Figure 5**: Abundance of unique taxa within the two main organism types. Samples were taken from more than 250 hand surfaces and tested for identification of bacterial communities. N = 9 human skin samples (4 female, 9 male). Human skin genome includes swabs from computer keys, computer mice, fingertips of individuals, and palm swabs. Indoor samples were those kept frozen at -20ºC while others remained on laboratory bench at 20ºC. 
 # Discussion
 
 Add around 2-3 pages interpreting your results and considering future directions one might take in analyzing these data.
