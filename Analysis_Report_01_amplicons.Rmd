@@ -1,6 +1,6 @@
 ---
 title: "Analysis Report 1: Your Title Here"
-author: "Don Francisco"
+author: "Brian Rezende"
 date: "October 20, 2017"
 output: github_document
 bibliography: references.bib
@@ -115,10 +115,6 @@ filtered_output <- filterAndTrim(fwd = filenames_forward_reads,
 kable(filtered_output,
       col.names = c("Reads In",
                     "Reads Out"))
-```
-
-```{r filter taxa-table}
-
 ```
 
 
@@ -272,9 +268,11 @@ phyloseq_obj <- phyloseq(otu_table(sequence_table_nochim,
                          phy_tree(tree_in)) # phylogeny from sequence variants
 ```
 
+
 ```{r melt-phyloseq}
 # Melt the physloseq object for dplyr/ggplot
 melted_phyloseq <- psmelt(phyloseq_obj)
+
 ```
 
 ```{r example-phyloseq-plot-1}
@@ -299,50 +297,64 @@ plot_tree(phyloseq_obj,
 
 **Figure 2**: Inferred phylogeny of sequences, with points on tips representing samples within which each particular taxa occurred. Tree represents phylogeny inferred using FastTree.
 
+
+
 # MY FIGURES 
-```{r plot-tree looking at just genus}
-plot_tree(phyloseq_obj, 
-          color = "Genus", 
-          label.tips = "sample_type",
-          ladderize = TRUE)
+
+```{r loading-tree-package}
+# load tree package
+source("https://bioconductor.org/biocLite.R")
+biocLite("ggtree")
+
+ggtree::ggtree(phyloseq_obj,
+               melted_phyloseq,
+       aes(color = "Genus"),
+       layout='circular')+
+  aes(angle=angle)
 ```
-```{r plot richness of }
+
+```{r plot richness of space bar and finger tip }
 subset_sample_source_obj <- subset_samples(phyloseq_obj,
                                            sample_source %in%
                                              c("Space_bar", "finger_tip"))
 plot_richness(subset_sample_source_obj,
               x = "sample_type",
               color = "sample_source",
-              measures = c("Observed", "Shannon")) 
-
-melted_phyloseq %>%
-  filter(sample_source %in% c("Space_bar", "finger_tip")) %>%
-  group_by()
-
+              measures = c("Observed", "Shannon")) +
+ggtitle("Alpha Diversity Measure of Space Bar and Finger Tip")
+  
 ```
-number of different strains (actual number) and shannon counts evenenness and richness. 
+
+**Figure 2** Alpha diversity measure of two samples, colored in by sample source. 
+
+number of different strains (actual number) and shannon counts evenenness and richness.
 
 ```{r melting phyloseq}
 melted_phyloseq <- psmelt(phyloseq_obj)
+melted_phyloseq %>%
+  filter(sample_source %in% c("Space_bar", "finger_tip")) %>%
+  group_by()
 ```
 
 
-```{r filtered space bar and least abundant phylum}
+```{r subset-phylum-existing-on-spacebar}
 subset_phyloseq <- subset_samples(phyloseq_obj, sample_source == "Space_bar")
 
 plot_tree(subset_phyloseq, 
           color = "Phylum",
           ladderize = TRUE)
 
+```
+
+```{r filtered space bar and least abundant phylum}
 subset_deinococcus_thermus <- subset_taxa(subset_phyloseq, Phylum == "Deinococcus-Thermus")
 
 plot_tree(subset_deinococcus_thermus,
           color = "Phylum",
           ladderize = TRUE)
-
 ```
 
-```{r presence of deinococcus thermus in samples}
+```{r presence of deinococcus thermus in phylogeny tree}
 
 small_obj <- subset_taxa(phyloseq_obj, Phylum == "Deinococcus-Thermus")
 
