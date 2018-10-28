@@ -326,7 +326,7 @@ ggtitle("Plot richness of space bar and finger tip microbiomes")
   
 ```
 
-**Figure 2** Alpha diversity measure of two samples, colored in by sample source. Raw observed data is compared to Shannon index of the two specific samples. 
+**Figure 2**: Alpha diversity measure of two samples, colored in by sample source. Raw observed data is compared to Shannon index of the two specific samples. 
 
 ```{r melting phyloseq}
 melted_phyloseq <- psmelt(phyloseq_obj)
@@ -339,9 +339,8 @@ subset_phyloseq <- subset_samples(phyloseq_obj, sample_source == "Space_bar")
 plot_tree(subset_phyloseq, 
           color = "Phylum",
           ladderize = TRUE)
-
 ```
-
+**Figure 3**: Inferred phylogeny of existing phylum solely on space bar sample type. Tree represents phylogeny inferred using FastTree. Phylum branches are displayed from short to long. 
 ```{r filtered space bar and least abundant phylum}
 subset_deinococcus_thermus <- subset_taxa(subset_phyloseq, Phylum == "Deinococcus-Thermus")
 
