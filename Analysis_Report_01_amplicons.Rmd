@@ -1,7 +1,7 @@
 ---
 title: "Analysis Report 1: Your Title Here"
 author: "Brian Rezende"
-date: "October 20, 2017"
+date: "October 28, 2017"
 output: github_document
 bibliography: references.bib
 csl: bioinformatics.csl
@@ -345,6 +345,7 @@ plot_tree(subset_phyloseq,
   coord_polar(theta = "y")
 
 ```
+
 **Figure 3**: Inferred phylogeny of existing taxa solely on space bar sample swabs. Points on the tip represent taxa found on each sample. Tree represents phylogeny inferred using FastTree. Phylum branches are displayed from short to long in this figure. 
 
 ```{r melting phyloseq}
@@ -352,7 +353,8 @@ melted_phyloseq <- psmelt(phyloseq_obj)
 ```
 
 ```{r tracking deinococcus-thermus in space bar within filtered phylums}
-subset_deinococcus_thermus <- subset_taxa(subset_phyloseq, Phylum == "Deinococcus-Thermus")
+subset_deinococcus_thermus <- subset_taxa(subset_phyloseq, 
+                                          Phylum == "Deinococcus-Thermus")
 
 plot_tree(subset_deinococcus_thermus,
           color = "Phylum",
@@ -360,6 +362,7 @@ plot_tree(subset_deinococcus_thermus,
           ladderize = TRUE) +
   ggtitle("Phylogenetic tree of Deinococcus-thermus")
 ```
+
 **Figure 4**: Inferred phylogeny of Deinococcus-thermus in space bar sample types and presence in descendant phylum. Points on the tip demonstrates strain abundance.  
 ```{r presence of deinococcus thermus filtered by sex}
 
@@ -370,6 +373,7 @@ plot_tree(small_obj,
           ladderize = TRUE) +
   ggtitle("Deinococcus thermus in male and female samples")
 ``` 
+
 **Figure 5**: Phylogenetic tree of Deinococcus thermus of space bar samples based on 16s RNA gene sequences. The points on the tips represent samples within which each phylum is present in a particular sex and abundance within the strain. Tree represents phylogeny inferred using FastTree. 
 
 # Discussion
