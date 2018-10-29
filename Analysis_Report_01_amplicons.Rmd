@@ -309,7 +309,7 @@ biocLite("ggtree")
 ```{r subset-phylum-existing-on-spacebar}
 subset_phyloseq <- subset_samples(phyloseq_obj, sample_source == "Space_bar")
 
-plot_tree (subset_phyloseq, 
+plot_tree(subset_phyloseq,
           color = "Phylum",
           base.spacing = 0.003,
           label.tips = "Class",
@@ -327,7 +327,7 @@ plot_richness(subset_sample_source_obj,
               x = "sample_type",
               color = "sample_type",
               measures = c("Observed", "Shannon")) +
-  xlab("Sample")+
+  xlab("Sample") +
 ggtitle("Plot richness of space bar and finger tip microbiomes")
   
 ```
@@ -339,7 +339,8 @@ melted_phyloseq <- psmelt(phyloseq_obj)
 ```
 
 ```{r tracking deinococcus-thermus in space bar within filtered phylums}
-subset_deinococcus_thermus <- subset_taxa(subset_phyloseq, Phylum == "Deinococcus-Thermus")
+subset_deinococcus_thermus <- subset_taxa(subset_phyloseq, 
+                                          Phylum == "Deinococcus-Thermus")
 
 plot_tree(subset_deinococcus_thermus,
           color = "Phylum",
@@ -351,7 +352,6 @@ plot_tree(subset_deinococcus_thermus,
 ```{r presence of deinococcus thermus filtered by sex}
 
 small_obj <- subset_taxa(phyloseq_obj, Phylum == "Deinococcus-Thermus")
-
 plot_tree(small_obj, 
           color = "Sex",
           label.tips = "Abundance",
@@ -367,7 +367,7 @@ melted_phyloseq %>%
              fill = Organism)) +
   geom_col(position = position_dodge()) +
   theme(axis.text.x = element_text(angle = 90,
-                                   hjust = 1))+
+                                   hjust = 1)) +
   ggtitle("Phylum abundance per organism")
 ```
 **Figure 5**: Abundance of unique taxa within the two main organism types. Samples were taken from more than 250 hand surfaces and tested for identification of bacterial communities. N = 9 human skin samples (4 female, 9 male). Human skin genome includes swabs from computer keys, computer mice, fingertips of individuals, and palm swabs. Indoor samples were those kept frozen at -20ºC while others remained on laboratory bench at 20ºC. 
