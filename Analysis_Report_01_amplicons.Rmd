@@ -208,7 +208,7 @@ kable(track)
 # made up of known sequences
 taxa <- assignTaxonomy(sequence_table_nochim,
                        "data/training/rdp_train_set_16.fa.gz",
-                       multithread = TRUE,
+                       multithread = FALSE,
                        tryRC = TRUE) # also check with seq reverse compliments
 
 # show the results of the taxonomy assignment
@@ -353,7 +353,7 @@ melted_phyloseq <- psmelt(phyloseq_obj)
 ```
 
 ```{r tracking deinococcus-thermus in space bar within filtered phylums}
-subset_deinococcus_thermus <- subset_taxa(subset_phyloseq, 
+subset_deinococcus_thermus <- subset_taxa(subset_phyloseq,
                                           Phylum == "Deinococcus-Thermus")
 
 plot_tree(subset_deinococcus_thermus,
