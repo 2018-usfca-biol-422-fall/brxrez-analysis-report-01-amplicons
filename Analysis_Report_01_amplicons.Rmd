@@ -38,8 +38,6 @@ The 16S rRNA sequences were collected from the NCBI sequence database. We create
 
 # Results
 
-In addition to a minimum of 3-4 figures/tables (and associated captions), you should include sufficient text in this section to describe what your findings were. Remember that in the results section you just describe what you found, but you don't interpret it - that happens in the discussion.
-
 ```{r load-libraries, message = FALSE}
 # Be sure to install these packages before running this script
 # They can be installed either with the intall.packages() function
