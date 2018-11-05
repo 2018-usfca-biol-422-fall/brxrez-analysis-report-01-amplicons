@@ -1,25 +1,40 @@
 ---
-title: "Analysis Report 1: Your Title Here"
+title: "Analysis Report 1: The Wonders of Deinococcus-thermus"
 author: "Brian Rezende"
-date: "October 28, 2017"
+date: "November 4, 2018"
 output: github_document
 bibliography: references.bib
 csl: bioinformatics.csl
 ---
 
 # Introduction
+Protein structure is a crucial component of exhibiting normal function and genotype. Behind these building blocks of life are amino acids, which contribute to the overall composition of proteins. Similarly, some bacteria are essential for human function. In scientific literature there has been an influx of research that highlights the diversity of skin-associated bacteria, which was once thought of as less diverse. Through these discoveries we are able to better investigate and question communities that were once indistinguishable to us. 
+One particular skin-associated bacteria of interest belongs to the phylum deinococcus-thermus. This phylum has a small presence in the human skin genome, yet it holds tremendous values for improving the quality of human and non-human life. The phylum itself is a compelling phylum that has recently gained attraction and availability of genomes, growing from 4 genomes in 2006 to over 65 genomes in 2016. [@ho2016].Namely, Deinococcus-thermus constitutes one of the major bacterial evolutionary lineages. Some species may also potentially be used to produce thermostable enzymes Their ability to produce carotenoids are also noteworthy because these pigments have the potential to increase resistance against genetically engineered bacterial strains, economic crops, and natural antioxidants for humans [@tian2010].  Within the bacteria of this phylum there are homologous genes to the T. thermophilus lysine biosynthetic genes. T. thermophilus utilizes the alpha-aminoadipate (AAA) pathway to biosynthesize lysine, which was one of the first lysine biosynthesis observed in archaea and bacteria [@hiromi2012]. This demonstrates an evolutionary adaptation in which the deinococcus species acquired genes from various other bacteria in order to withstand environmental stresses. It was found that in the thermus species an there was an acquisition of genes from thermophilic bacteria  that are able to adapt to high-temperature environments [@hiromi2012]. Genes that are homologous to the genes encoding lysine biosynthesis through the AAA pathway have also been found to be distributed in other bacteria that belong to this particular phylum which suggests that these phylum originate from a common ancestor. This common ancestor is believed to have biosynthesized lysine through the AAA pathway as opposed to using the DAP pathway [@hiromi2012]. 
+The amino acid lysine is characterized by the presence of an amino group located at the end of  a 4 carbon side chain, thus rendering it  more chemically reactive in certain interactions. It is one of twenty protein-building amino acids, and arguably the most important essential amino acid [@prokisch2017]. As a result of this configuration, portions of lysine can be degraded, while another portion can become unavailable in food systems because of its involvement in different interactions with amino acid side chains, carbohydrates, and lipids [@tome2007]. Thus, this amino acid coupled with threonine, is a strictly indispensable amino acid in both humans and non-humans. One of the simplest ways to obtain lysine is through diet because mammals are unable to synthesize this amino acid. However, efforts of cereal fortification by lysine hydrochloride are still insufficient for reaching the requirements for humans and animals, which is a range of 12-45 mg/kg/per day. This lack of lysine in organisms diet is a concern due to the fact that the main role of lysine is to participate in protein synthesis [@tome2007]. Thus, my primary question is what drives this disparity in presence of deinococcus-thermus and means of enriching the concentration of this phylum in humans. I hypothesize that a restricted and poor diet on a college campus influences this lack of abundance and that further sequencing of deinococcus-thermus may reveal novel strains viable for analysis and manipulation. In order to answer this I analyzed microbial communities obtained from swabs of computer mice, computer keys, male and female palms, and fingertips. By analyzing these skin metagenomes I was able to infer phylogeny and taxonomic information from the bacteria collected. The scope was limited to the bacteria found on keyboard space bar keys because they contained the greatest density of samples in comparison to the other keyboard keys. Moreover, in order to test this high throughput sequencing data was utilized, coupled with DADA2 for cleaning the sequences and Phyloseq for turning data into tangible figures.
 
-Add about 1.5-2 pages here. Must cite at least 5 peer reviewed articles.
+
 
 # Methods
 
 ## Sample origin and sequencing
 
-Add about half a page here. In this section instead of first person (I/we), use Fierer et al., since you'll just be describing what they did, based on the methods in their paper.
+Fierer et al. collected two types of samples for their research concerning forensic identification using skin bacterial communities. For the keyboard study, they swabbed individual keys of three personal computer keyboards, followed by swabbing the fingertips of the exclusive keyboard user. 15 space bar keys from private and public computers from the University of Colorado campus were swabbed as well as skin surfaces to draw comparisons between bacterial communities. Moreover, for Fierer et al., second study, they utilized the same swabbing technique mentioned before and sampled the right armpit skin surface of adult individuals. They used this as a control to ensure that all samples get sufficient amounts of bacterial biomass. Half of the samples were immediately frozen while the other left were left in uncapped conical tubes on the laboratory bench. In addition, they obtained nine healthy adults (four female and five male, 20-35 years old) located on the University of Colorado campus. In this study they swabbed the entire surface of each computer mouse and the palm surface of the hand that is used dominantly to maneuver the mouse. Following these swab samples, Fierer and his colleagues constructed a database of bacterial communities featured from 270 other hands (left and right palm) that were sampled in other projects. Using the skin bacteria communities they examined how similar they were with objects stored at **-20ºC**. This comparison is made due to the conditions closely matching ones that are imposed on stored samples before undergoing DNA extraction. 
+
+The following criteria was required to properly link the bacteria from different environments:
+*Recovered bacterial DNA allows for adequate characterization and comparison of communities.
+*Persistance of skin-associated bacteria on surfaces for days to weeks
+*Surfaces touched are effectively linked to individuals by assessing the similarity between the two bacterial communities.
+
+They carried out three interrelated studies, which combined phylogenetic community analyses with a high throughput pyrosequencing approach. Amplification of 16S rRNA genes were created for phylogenetic analysis of pyrosequencing reads. PCR reactions with special primers aimed to find locate one gene of one of the organisms, also known as a barcode gene. These sequences were processed using the pyrosequencing method on a 454 genome sequencer. The results were then cleaned up using the UniFrac metric to determine dissimilarity between bacterial communities. What this aimed to answer was the validity of being able to quantitatively compare bacterial communities found on objects and skin to effectively match the individual to the object with a high degree of certainty.
+
 
 ## Computational
 
-These are the methods you used. Should probably be at least a half of a page. At a very minimum should include citations for DADA2 [@callahan2016] and phyloseq [@mcmurdie2013]. Note that these don't count towards the five references you need to cite in the introduction.
+Using the metadata produced from Fierer’s initial study, I ran the series of fastq files generated through a pipeline of quality checks followed by filtering, trimming, and cleaning completed using DADA. DADA is a program that is used as a universal tool of being able to correct errors and collapse sequences that are similar onto one another. DADA parameters were set to locally align the number of bands and to ensure that biological variation is not mistaken as sequencing errors. Rather than producing operational taxonomic units (OTUs) this method will produce amplicon sequence variants (ASVs) that are trimmed and denoised [@callahan2016].  We then cleaned up the outputted DATA material even further to remove chimeras and accurately assign taxonomic labels to each sequence variant. Once taxonomy was assigned to our sequence variants, a conversion from sequences to fasta files were necessary in order to plot out phylogeny. The sequence names remained as the labels for the sequence and a taxonomic table was generated. The phylogeny was read in from the fasta generated and a phyloseq object was constructed straight from the DADA outputs. 
+
+Using this metadata and their fastq files we created these figures to infer further curiosities about the bacterial communities living on the samples, specifically in the phylum deinococcus thermus.
+The 16S rRNA sequences were collected from the NCBI sequence database. We created a phylogenetic tree based on the sequences of bacterial proteins obtained from 1,4000 genome sequenced members of  bacterial communities living on sampled space bar keys. Next, a series of phyloseq graphing tools were implemented in order to delve deeper into the spread of taxa within samples and their respective abundance within phylums. Other phyloseq tools and graph manipulations utilized were subsets of data that were filtered and trimmed. 
+
 
 # Results
 
@@ -79,12 +94,7 @@ sample_names <- sapply(strsplit(filenames_forward_reads, "\\."), `[`, 1)
 filenames_forward_reads <- file.path(path, filenames_forward_reads)
 ```
 
-```{r check-quality-plots}
-# Plots the quality profiles of all twenty samples
-plotQualityProfile(filenames_forward_reads[1:20])
-```
 
-We can see from the quality profiles that most reads tend to get pretty bad in quality after around 200 bases. 
 
 ```{r filter-reads}
 # Place filtered files in filtered/ subdirectory
@@ -109,14 +119,6 @@ filtered_output <- filterAndTrim(fwd = filenames_forward_reads,
                                  multithread = FALSE)
 ```
 
-```{r filtered-read-counts-table}
-# produce nicely-formatted markdown table of read counts
-# before/after trimming
-kable(filtered_output,
-      col.names = c("Reads In",
-                    "Reads Out"))
-```
-
 
 ```{r learn-errors}
 # this build error models from each of the samples
@@ -124,12 +126,6 @@ errors_forward_reads <- learnErrors(filtered_reads_path,
                                     multithread = FALSE)
 ```
 
-```{r visualize-errors-with-plots}
-# quick check to see if error models match data
-# (black lines match black points) and are generally decresing left to right
-plotErrors(errors_forward_reads,
-           nominalQ = TRUE)
-```
 
 ```{r dereplicate-sequences}
 # get rid of any duplicated sequences
@@ -158,14 +154,6 @@ dada_forward_reads
 sequence_table <- makeSequenceTable(dada_forward_reads)
 ```
 
-The output table has `r nrow(sequence_table)` rows (samples) and `r ncol(sequence_table)` columns (sequence variants). Notice how we can embed R code directly in our markdown text.
-
-```{r histogram-of-sequence-lengths}
-# Quick check to look at distribution of trimmed and denoised sequences
-hist(nchar(getSequences(sequence_table)),
-     main = "Histogram of final sequence variant lengths",
-     xlab = "Sequence length in bp")
-```
 
 ```{r remove-chimeras}
 # Check for and remove chimeras
@@ -275,31 +263,8 @@ melted_phyloseq <- psmelt(phyloseq_obj)
 
 ```
 
-```{r example-phyloseq-plot-1}
-# alpha diversity metrics
-plot_richness(phyloseq_obj,
-              x = "sample_type",
-              measures = c("Shannon", "Simpson"),
-              color = "Sex") +
-  xlab("Sample origin") +
-  geom_jitter(width = 0.2) +
-  theme_bw()
-```
-
-**Figure 1**: Alpha diversity measures of the two sample types, colored by gender.
-
-```{r example-phyloseq-plot-2}
-# phylogeny, yay!
-plot_tree(phyloseq_obj,
-          color = "Order",
-          ladderize = TRUE) # this arranges the tree branches from short to long
-```
-
-**Figure 2**: Inferred phylogeny of sequences, with points on tips representing samples within which each particular taxa occurred. Tree represents phylogeny inferred using FastTree.
 
 
-
-# MY FIGURES 
 ```{r loading-tree-package}
 # load tree package
 source("https://bioconductor.org/biocLite.R")
@@ -348,6 +313,8 @@ plot_tree(subset_phyloseq,
 
 **Figure 3**: Inferred phylogeny of existing taxa solely on space bar sample swabs. Points on the tip represent taxa found on each sample. Tree represents phylogeny inferred using FastTree. Phylum branches are displayed from short to long in this figure. 
 
+In my analysis I delve further into the specifics of determining the abundnace of deinococcus-thermus on the space bar key. It it found that deinococcus-thermus is one the least abundant phylum found within the samples. There is a greater prevalence of the bacteria exisiting on female samples as opposed to male samples as well. The bacteria is one of the least explored, yet peforms uniquely when sequenced, which raises interest when analyzing it. Phylogenetic trees were made in order to observe the distribution of phylum across sample types. Further analysis must be completed in order to distinguish the characteristics and potential physiology of the phylum and its constituents. 
+
 ```{r melting phyloseq}
 melted_phyloseq <- psmelt(phyloseq_obj)
 ```
@@ -378,7 +345,14 @@ plot_tree(small_obj,
 
 # Discussion
 
-Add around 2-3 pages interpreting your results and considering future directions one might take in analyzing these data.
+The microbial communities found on computer mice, computer keys, and skin samples are distinguished from one another on the basis of their abundance and branching in phylogenetic trees. A survey of the collective microbial communities present in these organisms provided an overview of what bacterial communities thrived and had greater dominance (Figure 1). My analysis that was completed here led to the identification of 41 species of deinococcus-thermus in female samples and a total of 2 species found across the male samples. The communities of these bacteria found on the computer space key reveal a presence of a shared common ancestor, which suggests that within the samples on the space bar key there are genetic changes and an inheritance of the traits by a select number of descendants of the ancestral bacteria. Using over 1,4000 bacterial gene sequences per sample, the differences in skin and surface (computer keys) sample types were measured using a plot richness graph with observed versus a Shannon index. The piped subset of phylum that were cleaned, trimmed, and sequenced were analyzed for species richness. It was observed that there was a higher richness of samples obtained from the fingertips of individuals than from the surface of the space bar key. When compared to the Shannon index, there was a smaller scaled richness of both finger tip and space bar key samples. The Shannon index measured the evenness and richness of the samples, hence the smaller scale that was outputted (Figure 2). A larger Shannon index value indicates that the sample is more diverse. In this instance, there lacks a greater degree of diversity amongst the samples. These results provide a link to the hypothesis that humans are lacking sufficient exposure to deinococcus-thermus, which in turn provides the biosynthesis of lysine. Lower presence of this bacteria will not allow for genetic adaptations to be created or for resistance to other environmental factors to develop. This could severely halt the promotion of ancestral genes, while also decreasing protection of proteins and the development of other proteins since lysines main role is to participate in protein synthesis. 
+
+There was a significantly greater abundance of deinococcus-thermus in female samples in comparison to the male samples, which suggests a sex specific genetic variation. The branching of the phylum from one of the ancestral genes demonstrates that conditions are more inhabitable on female skin samples as opposed to male (Figure 5). The presence of this bacteria on male samples has shown to remain constant through evolutionary changes while there is a sudden majority residing in the female samples. Prior to examining sex-specific differences, there is some relatedness between two species from the latest branching (Figure 4). In the protein based phylogenetic tree, a clade has begun forming slowly, but further analysis and sample size must be completed. 
+
+Rather than focusing on the most prominent phyla present in the samples tested, by analyzing the least abundant there is opportunity to question what more can be learned about the bacteria and phylum involved (Figure 3). Studies have shown that deinococcus-thermus bacteria can produce carotenoids, which effectively produce distinct structures. These structures are implied to play a role in the increased adaptation of the bacteria to environmental stressors. Interestingly, given the bacterias notable resistance to stressors, their presence is almost non-existent on samples obtained from skin and indoor metagenomes (Figure 1). If there had initially been more exposure to this bacteria in the subjects environment or through diet, we would expect a prolonged response and greater abundance. Moreover, carotenoids inhibit oxidative damage to proteins, including those involved in the DNA repair pathway and other enzymes involved in cell recovery [@tian2010]. This level of protection may correlate with the reduced presence of the bacteria appearing after sequencing. It is concerning that DT is not present more in our human samples due to the fact that it is essential for lysine biosynthesis. It contributes further to protein synthesis and humans may only generate this indispensable amino acid by protein intake. Synthetic lysine has been suggested for future prevention of decreased lysine intake. In particular, in a study with 2,000 mg high-lysine-content biscuits, lysine content was persistently increased, coupled with elevation in the antioxidant level of the blood serums [@prokisch2017]. Future directions that can be taken with these findings include the evaluation of physiological effects and effects on protein synthesis. In other respects, an increase in lysine consumption is beneficial in treating the symptoms of the herpes simplex virus (HSV). Lysine is an antagonist of arginine, thus it inhibits arginine absorption from the small intestines, reabsorption that takes place in the kidney, and its transport through the the plasma membranes [@prokisch2017]. This application of lysine and its potential therapeutic effects are crucial for combating HSV. Vast applications of lysine and its bacterial precursor, deinococcus-thermus are reasons for their development and continual research being done. 
+
+The phylum deinococcus-thermus has recently been found to contain 58 unique conserved signature insertions/deletions (CSIs) and 155 unique conserved signature proteins (CSPs) that make up different phylogenetic groups within the phylum. From original molecular signatures collected, 24 CSIs and 29 CPSs were found to be characteristics of this phylum [@ho2016]. By advancing the research of these signatures we may gain a better understanding of this phylum. Aside from these findings, there are groups of organisms within the phylum that are characterized by extreme radiation and desiccation resistance, which holds future use in the bioremediation of radiation-contaminated sites [@ho2016]. With an increase in the number of genomes available, there are a plethora of investigations that can be made of the constituent groups. Further analysis of the molecular characteristics and constituent groups may further expand the phylogenetic tree of deinococcus-thermus and unveil novel mechanisms and functions.
+
 
 # Sources Cited
 
